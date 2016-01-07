@@ -1,0 +1,8 @@
+{
+  "name": "nodus",
+  "version": "0.0.1",
+  "description": "NodeJS Application Framework",
+  "dependencies": {
+  }
+}
+
