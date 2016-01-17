@@ -2,7 +2,7 @@
 
 // ** Libraries
 const yargs = require('yargs');
-const application = require('../lib/applications.js');
+const application = require('../lib/application.js');
 const errors = require('../lib/errors.js');
 
 yargs
