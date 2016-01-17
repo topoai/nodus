@@ -5,9 +5,13 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://gotham.bradserbu.com:100443/bradserbu/nodus.git" 
+    "url": "https://gotham.bradserbu.com:100443/bradserbu/nodus.git"
   },
+  "main": "./lib/",
   "dependencies": {
+    "extend": "^3.0.0",
+    "underscore": "^1.8.3",
+    "winston": "^2.1.1",
+    "yargs": "^3.31.0"
   }
 }
-
