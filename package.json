@@ -9,7 +9,9 @@
   },
   "main": "./lib/",
   "dependencies": {
+    "eventemitter2": "^0.4.14",
     "extend": "^3.0.0",
+    "measured": "^1.1.0",
     "underscore": "^1.8.3",
     "winston": "^2.1.1",
     "yargs": "^3.31.0"
