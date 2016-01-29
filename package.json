@@ -12,6 +12,7 @@
     "async": "^1.5.2",
     "callsite": "^1.0.0",
     "cassandra-driver": "^3.0.0",
+    "event-stream": "^3.3.2",
     "eventemitter2": "^0.4.14",
     "extend": "^3.0.0",
     "fluent-logger": "^1.0.0",
