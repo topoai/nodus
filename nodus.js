@@ -3,7 +3,6 @@
 
 // ** Libraries
 const REPL = require('repl');
-const services = require('./lib').services;
 const errors = require('./lib').errors;
 
 /**
@@ -12,8 +11,8 @@ const errors = require('./lib').errors;
 function startREPL() {
     const repl = REPL.start('nodus> ');
 
-    // ** Add a function to load an application using a JSON definition file.
-    repl.context.load = filepath => {
+    // ** Load an application.
+    repl.context.load = name => {
         throw errors('NOT_IMPLEMENTED');
     };
 
