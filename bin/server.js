@@ -1,8 +1,34 @@
+#!/usr/bin/env node
 'use strict';
 
-// ** Libraries
-const yargs = require('yargs');
-const application = require('../lib/application.js');
-const errors = require('../lib/errors.js');
+const DEFAULT_CONFIG_FILE = 'server.json';
 
-throw errors('NOT_IMPLEMENTED');
+// ** Libraries
+const _ = require('underscore');
+const server = require('../lib').server;
+const errors = require('../lib').errors;
+const logger = require('../lib').logger;
+const files = require('../lib').files;
+
+/**
+ * Load the server definition file.
+ */
+function load(filename) {
+    const config = files.requireFile(filename || DEFAULT_CONFIG_FILE);
+
+    // ** Load all interfaces
+    // const interfaces = config.interfaces;
+    const svr = server();
+
+    // ** Load all services
+    const services = config.services;
+    _.forEach(services, (options, name) => {
+        logger.info('ADD_SERVICE:', name, options);
+        svr.addService(name, options);
+    });
+
+    return svr;
+}
+
+load('server.json')
+    .start();

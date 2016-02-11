@@ -1,7 +1,7 @@
 {
   "name": "nodus",
-  "version": "0.0.5",
-  "description": "",
+  "version": "0.0.6",
+  "description": "NodeJS Application Framework.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

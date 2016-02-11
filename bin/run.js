@@ -14,27 +14,23 @@ const files = require('../lib').files;
 function load_definition(app_name) {
     return files.requireFile(app_name + '.app.json');
 }
-
 function load_app(app_name) {
     return files.requireFile(app_name + '.app.js');
 }
-
 
 /**
  * Parse the command line arguments
  * @param callback
  */
 function parse_cli_args(callback) {
-    //logger.info('COMMANDS:', commands);
-
     yargs
-        .usage('Usage: $0 <app> [command] [args...] [options]')
+        .usage('Usage: <app> [command] [args...] [options]')
         .demand(1)  // ** Only demand one argument
         .boolean('newline')
         .describe('newline', 'Include a newline character for all outputs.')
-        .boolean('json')
-        .describe('json', 'Parse input as JSON.')
-        .default('json', true)
+        //.boolean('json')
+        //.describe('json', 'Parse input as JSON.')
+        //.default('json', true)
         .describe('version', 'Display the application version information.')
         .alias('h', 'help')
         .wrap(yargs.terminalWidth());
@@ -43,18 +39,18 @@ function parse_cli_args(callback) {
     const argv = yargs.argv;
     logger.debug('ARGV:', argv);
 
+    // ** Add all the commands supported by this application
+    const app_name = argv._.shift();
+    const command = argv._.shift();
+    const args = {};
+    const app_def = load_definition(app_name);
+
     // ** Display version information
     if (argv.version) {
         console.log(app_def.version);
         process.exit();
     }
 
-    // ** Add all the commands supported by this application
-    const app_name = argv._.shift();
-    const command = argv._.shift();
-    const args = {};
-
-    const app_def = load_definition(app_name);
     const commands = app_def.commands;
     _.forEach(commands, (command, name) => yargs.command(name, command.description));
 
@@ -89,15 +85,14 @@ function parse_cli_args(callback) {
 
 // ** Load application
 const options = parse_cli_args();
-
 const app = options.app;
 const command = options.command;
 const args = options.args;
 
 /**
  * Display a result.
- * @param err
  * @param result
+ * @param done
  */
 function RESULT(result, done) {
     const stringify = function(data) {
@@ -142,11 +137,12 @@ function EXIT(err) {
     application.shutdown();
 }
 
+// ** Run the application
 application
     .on('start', () => {
         // ** Run the application command provided
         application.run(command, args, (err, result) => {
-            if (err) return application.error(err);
+            if (err) return EXIT(err);
 
             RESULT(result, EXIT);
         });
