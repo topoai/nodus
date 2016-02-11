@@ -18,6 +18,7 @@
     "fluent-logger": "^1.0.0",
     "measured": "^1.1.0",
     "request": "^2.69.0",
+    "restify": "^4.0.4",
     "underscore": "^1.8.3",
     "winston": "^2.1.1",
     "yargs": "^3.31.0"

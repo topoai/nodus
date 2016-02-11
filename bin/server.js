@@ -18,13 +18,19 @@ function load(filename) {
 
     // ** Load all interfaces
     // const interfaces = config.interfaces;
-    const svr = server();
+    const svr = server(config);
 
     // ** Load all services
     const services = config.services;
     _.forEach(services, (options, name) => {
         logger.info('ADD_SERVICE:', name, options);
         svr.addService(name, options);
+    });
+
+    // ** Load all interfaces
+    _.forEach(config.interfaces, (options, name) => {
+        logger.info('ADD_INTERFACE:', name, options);
+        svr.addInterface(name, options);
     });
 
     return svr;
