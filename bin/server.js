@@ -5,7 +5,7 @@ const DEFAULT_CONFIG_FILE = 'server.json';
 
 // ** Libraries
 const _ = require('underscore');
-const server = require('../lib').server;
+const server = require('../lib').api;
 const errors = require('../lib').errors;
 const logger = require('../lib').logger;
 const files = require('../lib').files;
@@ -18,7 +18,7 @@ function load(filename) {
 
     // ** Load all interfaces
     // const interfaces = config.interfaces;
-    const svr = server(config);
+    const svr = api(config);
 
     // ** Load all services
     const services = config.services;
