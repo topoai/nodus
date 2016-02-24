@@ -1,8 +1,9 @@
 {
+  "version": "0.1.0",
   "name": "helloworld",
   "description": "The programmers way of saying hello.",
   "commands": {
-    "sayHello": {
+    "sayhello": {
       "parameters": {
         "name": {
           "description": "The name of the user.",
