@@ -4,8 +4,8 @@
  * Greet the user.
  * @param name
  */
-function sayHello(name, callback) {
-    callback(null, 'Hello, ' + name + '!');
+function sayHello(name) {
+    return 'Hello, ' + name + '!';
 }
 
 // ** Exports
