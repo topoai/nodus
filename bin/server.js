@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const DEFAULT_CONFIG_FILE = 'server.json';
+const DEFAULT_CONFIG_FILE = './server';
 
 // ** Libraries
 const _ = require('underscore');
@@ -36,5 +36,5 @@ function load(filename) {
     return svr;
 }
 
-load('server.json')
+load()
     .start();
