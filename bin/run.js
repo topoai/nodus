@@ -26,6 +26,8 @@ function parse_cli_args(callback) {
     yargs
         .usage('Usage: <app> [command] [args...] [options]')
         .demand(1)  // ** Only demand one argument
+        .alias('l', 'loglevel')
+        .describe('loglevel', 'Change the output level to (debug|info|warn|error).')
         .boolean('newline')
         .describe('newline', 'Include a newline character for all outputs.')
         //.boolean('json')
@@ -38,6 +40,10 @@ function parse_cli_args(callback) {
     // ** Parse the command line
     const argv = yargs.argv;
     logger.debug('ARGV:', argv);
+
+    // ** set the default log level
+    if (argv.loglevel)
+        logger.level(argv.loglevel);
 
     // ** Add all the commands supported by this application
     const app_name = argv._.shift();

@@ -5,10 +5,43 @@ const DEFAULT_CONFIG_FILE = './server';
 
 // ** Libraries
 const _ = require('underscore');
+const yargs = require('yargs');
 const server = require('../lib').server;
 const errors = require('../lib').errors;
 const logger = require('../lib').logger;
 const files = require('../lib').files;
+
+function parseCommandLineArgs() {
+    yargs
+        .usage('Usage: <app> [command] [args...] [options]')
+        .alias('l', 'loglevel')
+        .describe('loglevel', 'Change the output level to (debug|info|warn|error).')
+        .describe('version', 'Display the application version information.')
+        .alias('h', 'help')
+        .wrap(yargs.terminalWidth());
+
+    // ** Parse the command line
+    const argv = yargs.argv;
+    logger.debug('ARGV:', argv);
+
+    // ** set the default log level
+    if (argv.loglevel)
+        logger.level(argv.loglevel);
+
+    // ** Display version information
+    if (argv.version) {
+        console.log(app_def.version);
+        process.exit();
+    }
+
+    // ** Display help
+    if (argv.help) {
+        yargs.showHelp();
+        process.exit();
+    }
+
+    return argv;
+}
 
 /**
  * Load the server definition file.
@@ -36,5 +69,8 @@ function load(filename) {
     return svr;
 }
 
-load()
-    .start();
+// ** Parse the Command Line Args
+parseCommandLineArgs();
+
+// ** Load the application and then start it.
+load().start();
