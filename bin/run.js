@@ -138,7 +138,7 @@ function RESULT(result, done) {
  * @constructor
  */
 function EXIT(err) {
-    if (err) logger.error(err);
+    if (err) console.log(util.inspect(err));
 
     application.shutdown();
 }
