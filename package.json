@@ -1,6 +1,6 @@
 {
   "name": "nodus",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "NodeJS Application Framework.",
   "license": "Apache-2.0",
   "repository": {
@@ -21,6 +21,7 @@
     "measured": "^1.1.0",
     "request": "^2.69.0",
     "restify": "^4.0.4",
+    "shortid": "^2.2.4",
     "underscore": "^1.8.3",
     "winston": "^2.1.1",
     "yargs": "^3.31.0"
