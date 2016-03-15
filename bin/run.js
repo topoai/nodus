@@ -11,6 +11,13 @@ const application = require('../lib').application;
 const streams = require('../lib').streams;
 const files = require('../lib').files;
 
+function isPromise(obj) {
+    //const is_promise = util.isFunction(obj.reject) && util.isFunction(obj.resolve);
+    //logger.info('IS_PROMISE:', is_promise, {obj: obj});
+    //return is_promise;
+    return util.isFunction(obj.then);
+}
+
 function load_definition(app_name) {
     return files.requireFile(app_name + '.app.json');
 }
@@ -101,7 +108,8 @@ const args = options.args;
  * @param done
  */
 function RESULT(result, done) {
-    const stringify = function(data) {
+    // ** Method to stringify a result before displaying it to the user.
+    const stringify = function (data) {
 
         if (data instanceof Buffer) {
             logger.debug('BUFFER!');
@@ -114,13 +122,24 @@ function RESULT(result, done) {
     };
 
     if (streams.isReadableStream(result)) {
-        logger.debug('STREAM RESULT!');
+        // ** Write Stream contents
+        logger.info('STREAM RESULT!');
         const stream = result
             .pipe(es.mapSync(stringify));
 
         stream.on('data', console.log);
         stream.on('error', done);
         stream.on('end', done);
+    } else if (isPromise(result)) {
+        // ** Resolve the Promise and write the result
+        logger.debug('**** PROMISE RESULT DETECTED ****');
+        result
+            .catch(done)
+            .then(resultValue => {
+                console.log(stringify(resultValue));
+            })
+            .then(done);
+
     } else {
         // ** If RESULT IS UNDEFINED, IGNORE IT
         if (typeof result === 'undefined')
@@ -130,6 +149,8 @@ function RESULT(result, done) {
 
         done();
     }
+
+
 }
 
 /**
