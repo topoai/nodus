@@ -57,7 +57,7 @@ function load(filename) {
     const services = config.services;
     _.forEach(services, (options, name) => {
         logger.info('ADD_SERVICE:', name, options);
-        svr.addService(name, options);
+        svr.loadService(name, options);
     });
 
     // ** Load all interfaces

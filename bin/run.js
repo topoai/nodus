@@ -75,12 +75,15 @@ function parse_cli_args(callback) {
 
     // ** Convert arguments to name=value pairs to object
     for (let lcv = 0; lcv < argv._.length; lcv++) {
-        const split = argv._[lcv].split('=');
+        const arg = argv._[lcv];
+        const split = arg.split('=');
         const name = split[0];
 
-        const value = argv._[lcv].replace(name + '=', '');
+        let value;
+        if (split.length > 1) {
+            value = arg.substring(arg.indexOf('=') + 1);
+        }
 
-        // logger.debug('ARG:%s=%s', name, value);
         args[name] = value;
     }
 
